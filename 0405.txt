@@ -1,0 +1,61 @@
+készitsunnk egy alkalmazást 
+azokbol a lépésekből amik még nem voltak számonkérve
+konkrét programozási feladat van 
+tervezés és jegyzetelés is szükséges
+
+3. A feladat: 
+az alkalmazásunk tudjon
+-adatokat listázni
+-képes legyen törölni
+-képes legyen beszurni az adatokba
+extra hf:
+tudjunk keresni is ! 
+Két adatra lesz szükségünk! 
+Nyilván akarjuk tartani h milyen játékokkal játszottunk eddig
+játék neve és kiadó 
+megoldáshoz kötelező elemek bootsrap, saját css ajánlott 
+A perzisztálás kötelező.
+
+2. Házi feladat: A képernyőképnek megfelelő statikus HTML oldal kialakítása Bootstrap és saját CSS segítségével! A színeket tetszőlegesen átalakíthatja, de az elrendezés hasonló kell legyen!
+Ez a leírás és a képernyőkép a saját accountjával történő bejelentkezés után a K:\nodejs\tervezésZH mappában megtalálható!
+
+Milyen ORM-et használnak ? 
+LOKI JS- is ORM 
+Perzisztálás: 
+LOKI-ban tudják e cisnálni...
+ORM-ek:
+LOKI JS 
+Type ORM
+Mongoose
+Sequalize
+
+Mentés:
+FS-el is lehetséges 
+
+npm init 
+npm i lokijs
+	a többit majd utolag 
+	npm js. org 
+1.beszurás:
+
+//Adatbázis készités
+const loki=require('lokijs');
+const db = new loki('library.db'); //adatbázis neve
+db.addCollection("books",["title", "author"]); //index
+const b =db.addCollection("books2",{
+    indices:["title", "author"], //ez lesz a fejlécbe
+    unique:["title"] //ez a kulcs
+});
+//beszurás az adatbázisba insert segitségével
+try{
+    b.insert({title: "Micimaci",aruthor: "Robertgida"}); //1. példa
+    b.insert({title: "hupikéktörpikék",author: "Törpapa"}); // 2. példa
+}catch(err){ 
+    console.log(err); // ha nem működik hibát dob
+}
+db.saveDatabase(); //adatbázis mentése 
+
+2.keresés
+
+két keresési lehetőség az első a find:
+az a lényege, hogy minden elemet megtalál és json formátumban elrakja
